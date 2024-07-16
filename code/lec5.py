@@ -23,6 +23,13 @@ print("브로드캐스팅 결과:\n", result)
 import numpy as np
 ?np.random.seed
 np.random.seed(2024)
+test= np.random.choice(np.arange(1,4) ,100, True, np.array([2/5,2/5,1/5]))
+test # 확률 합이 1이 되야함
+sum(test == 1)
+sum(test == 2)
+sum(test == 3)
+
+?np.random.randint
 a = np.random.randint(1,21,10)
 a 
 print(a[1]) # 두번째 값 추출
