@@ -94,3 +94,71 @@ mpg.query('category=="suv"')\
    .agg(mean_tot=('total','mean'))\
    .sort_values('mean_tot', ascending=False)\
    .head()
+   
+   
+# 1. 변수 이름 변경 했는지?
+# 2. 행들을 필터링 했는지?
+# 3. 새로운 변수를 생성했는지?
+# 4. 그룹 변수 기준으로 요약을 했는지?
+# 5. 정렬 했는지?
+
+# .reset_index() 시리즈를 데이터프레임으로 바꿔줌
+
+import pandas as pd
+
+# 데이터 합치기
+
+test1 = pd.DataFrame({
+    'id':[1,2,3,4,5],
+    'midterm':[60,80,70,90,85]
+})
+
+test2 = pd.DataFrame({'id':[1,2,3,40,5],
+'final' :[70,83,65,95,80]})
+
+test1
+test2
+
+total_l = pd.merge(test1, test2, how='left', on='id')
+total_l # 기준이 test1이기 때문에 40번은 빠짐
+
+total_r = pd.merge(test1, test2, how='right', on='id')
+total_r # 기준이 test2이기 때문에 40번은 빠짐
+
+total_i = pd.merge(test1, test2, how='inner', on="id")
+total_i # 공통된거
+
+total_o = pd.merge(test1, test2, how='outer', on="id")
+total_o # 싹 다
+
+
+name=pd.DataFrame({'nclass':[1,2,3,4,5],
+                   'teacher':['kim','lee','park','choi','jung']})
+name
+
+exam = pd.read_csv('data/exam.csv')
+exam.head()
+exam_t = pd.merge(exam,name,how='left',on='nclass')
+exam_t.head()
+
+# 데이터를 세로로 쌓는 방법 (칼럼이 똑같아야함)
+
+score1 = pd.DataFrame({
+    'id':[1,2,3,4,5],
+    'score':[60,80,70,90,85]
+})
+
+score2 = pd.DataFrame({'id':[6,7,8,9,10],
+'score' :[70,83,65,95,80]})
+
+score1
+score2
+
+score_all = pd.concat([score1, score2])
+score_all = pd.concat([score1, score2], ignore_index = True)
+score_all
+
+
+test1
+test2
+pd.concat([test1,test2],axis=1)
