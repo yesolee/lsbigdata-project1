@@ -16,6 +16,10 @@ def Y(num,p):
 Y(num=1, p=0.5)
 sum(Y(num=100, p=0.5))/100
 
+
+
+
+
 # 대수의 법칙
 Y(num=1000000, p=0.5).mean()
 
@@ -35,5 +39,7 @@ def Z(p):
     return np.where(x<p_cumsum[0],0,np.where(x<p_cumsum[1],1,2))
 p=np.array([0.2,0.5,0.3])
 
+Z(p)
 
-
+# E[X]
+sum(np.arange(4) * np.array([1,2,2,1]) / 6)
