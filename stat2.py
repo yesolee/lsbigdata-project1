@@ -21,3 +21,23 @@ mean_data=data.mean(axis=1)
 plt.hist(mean_data, bins= 30, alpha=0.7, color='blue')
 plt.show()
 plt.clf()
+
+import os
+print(os.getcwd()) # 현재경로
+
+import pandas as pd
+
+score1 = pd.DataFrame({"id"     : [1, 2, 3, 4, 5], 
+                      "score": [60, 80, 70, 90, 85]})
+
+score2 = pd.DataFrame({"id"     : [6, 7, 8, 9, 10],
+                      "score"  : [70, 83, 65, 95, 80]})
+score1
+score2
+score_all=pd.concat([score1, score2], axis=1)
+score_all
+
+test1
+test2
+b
+pd.concat([test1, test2], axis=1)
