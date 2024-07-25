@@ -95,9 +95,3 @@ sum((y-Ey)**2 * pro_y)
 
 3.625/5
 
-# !pip install scipy
-from scipy.stats import bernoulli
-#확률 질량 함수 pmf(k,p) : 확률변수가 갖는 값에 해당하는 확률을 저장하고 있는 함수
-bernoulli.pmf(1, 0.3)
-
-bernoulli.pmf(0, 0.3)
