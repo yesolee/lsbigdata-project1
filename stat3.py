@@ -245,7 +245,7 @@ def npdf(x, mu,sigma):
     y = part1 * part2
     return y
 
-x_values = linspace(-3*2,3*2,100)
+x_values = np.linspace(-3*2,3*2,100)
 pdf_values = npdf(x_values,3,2)
 plt.plot(x_values, pdf_values, color='red', linewidth=2)
 plt.show()
@@ -266,7 +266,8 @@ norm.cdf(3,2,3) + 1 - norm.cdf(7,2,3)
  
 # X ~ N(30, 4=2^2) 
 # P(x >= 0.95)
-norm.ppf(0.95, 30, 2)
+score= norm.ppf(0.95, 30, 2)
+score
 
 
 
