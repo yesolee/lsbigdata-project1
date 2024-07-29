@@ -13,3 +13,6 @@ sub_df['SalePrice']= price_mean
 sub_df
 
 sub_df.to_csv('house/sample_submission.csv', index=False)
+house_df['YearBuilt']
+
+house_df.groupby('YearBuilt').
