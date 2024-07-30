@@ -84,3 +84,51 @@ plt.clf()
 # 95% 해당하는 a,b 확인
 norm.ppf(0.025, loc=4, scale= np.sqrt(1.3333333/20))
 norm.ppf(0.975, loc=4, scale= np.sqrt(1.3333333/20))
+
+import pandas as pd
+import numpy as np
+
+#1~28 숫자 중 중복 없이 28개 숫자 뽑는 방법
+old_seat = np.arange(1,29)
+np.random.seed(20240729)
+new_seat = np.random.choice(old_seat, 28, replace=False)
+result = pd.DataFrame({
+    "old_seat":old_seat,
+    "new_seat":new_seat
+})
+result.to_csv('result.csv')
+
+
+# y= 2x 그리기
+# 점을 직선으로 이어서 표현현
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.clf()
+plt.show()
+x=np.linspace(0,8,2)
+y=2*x
+plt.plot(x,y,color="black")
+plt.scatter(x,y,color="red")
+plt.show()
+plt.clf()
+
+# y = x^2을 점 3개를 사용해서 그리기
+x=np.linspace(-8,8,100)
+x
+y=x**2
+y
+plt.plot(x,y,color="black")
+plt.scatter(x,y,color="red", s=3)
+
+plt.xlim(-10,10)
+plt.ylim(0,40)
+plt.gca().set_aspect('equal',adjustable='box')
+# 그래프의 비율을 맞춰주는 함수
+# plt.axis('equal')
+
+plt.show()
+plt.clf()
+
+
+
