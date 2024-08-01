@@ -91,5 +91,6 @@ house_sub.to_csv('house/sample_submission10.csv', index=False)
 
 
 
-
+import numpy as np
+np.random.randint(r)
 
