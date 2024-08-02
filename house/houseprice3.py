@@ -141,17 +141,90 @@ plt.clf()
 house_train['BedroomAbvGr'].value_counts()
 house_test['BedroomAbvGr'].value_counts()
 
+test_x = np.array(house_test['BedroomAbvGr']).reshape(-1,1)
+test_x
+pred_y = model.predict(test_x) # test 셋에 대한 집값
+pred_y
+
+# SalePrice 바꿔치기
+house_sub['SalePrice'] = pred_y *1000
+house_sub 
+
+house_sub.to_csv('house/sample_submission12.csv', index=False)
+
+
 #회귀직선 구하기
 
+# y= x^2+3, my_f(x)의 최솟값:3 (x=0일떄)
+def my_f(x):
+    return x**2+3
+
+def my_f2(x):
+    return x[0]**2 + x[1]**2 + 3
+my_f2([1,3])
+
+def my_f3(x):
+    return (x[0]-1)**2 + (x[1]-2)**2 + (x[2]-4)**2 + 7
+my_f3([1,2,3])
+
+import numpy as np
+from scipy.optimize import minimize
+
+# 초기 추정값
+initial_guess = [10]
+initial_guess2 = [-10,3]
+initial_guess3 = [-10,3,4]
+
+# 최솟값 찾기
+result= minimize(my_f, initial_guess)
+result2= minimize(my_f2, initial_guess2)
+result3= minimize(my_f3, initial_guess3)
+
+# 결과 출력
+result.fun # 최소값
+result.x #최소값을 갖는 x 값
+result2.fun # 최소값
+result2.x #최소값을 갖는 x 값
+result3.fun # 최소값
+result3.x #최소값을 갖는 x 값
 
 
+# house에 적용2
+x = np.array(house_train['TotalBsmtSF']).reshape(-1, 1)  # x 벡터 (특성 벡터는 2차원 배열이어야 합니다)
+y = np.array(house_train['SalePrice'])
+# y 벡터 (레이블 벡터는 1차원 배열입니다)
+
+# 선형 회귀 모델 생성 (절댓값으로 구하는 2번 지표)
+model = LinearRegression()
+
+# 모델 학습
+model.fit(x, y) # 자동으로 기울기, 절편 값을 구해줌
+
+# 회귀 직선의 기울기와 절편
+model.coef_      # 기울기 a
+model.intercept_ # 절편 b
+
+slope = model.coef_[0]
+intercept = model.intercept_
+print(f"기울기 (slope a): {slope}")
+print(f"절편 (intercept b): {intercept}")
+
+# 예측값 계산
+y_pred = model.predict(x)
+y_pred
+import numpy as np
+
+house_test['TotalBsmtSF'].isna().sum()
+test_x = np.array(house_test['TotalBsmtSF']).reshape(-1,1)
+test_x
+pred_y = model.predict(test_x) # test 셋에 대한 집값
+pred_y
+
+# SalePrice 바꿔치기
+house_sub['SalePrice'] = pred_y
+house_sub 
 
 
-
-
-
-
-
-
+house_sub.to_csv('house/sample_submission30.csv', index=False)
 
 
