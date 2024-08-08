@@ -1,74 +1,44 @@
 import pandas as pd
-import numpy as np
 
-df = pd.DataFrame({
-    'sex': ['M','F', np.nan, 'M', 'F'],
-    'score': [5,4,3,4,np.nan]
-    })
-df
+mpg=pd.read_csv('data/mpg.csv')
+mpg.shape
 
-df['score']+1
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-pd.isna(df)
-pd.isna(df).sum()
+# 사이즈 조정
+plt.figure(figsize=(5,4))
+sns.scatterplot(data=mpg,
+                x='displ',y='hwy',
+                hue='drv')\
+   .set(xlim=[3,6],ylim=[10,30])
+plt.show()
+plt.clf()
 
-# 결측치 제거하기
-df.dropna(subset='score')
-df.dropna(subset=['score','sex'])
-df.dropna()
-df.loc[df["score"]==4,["score"]]=100
-df
+?sns.scatterplot
 
-# 데이터 프레임 location을 사용한 인덱싱
-# exam.loc[행 인덱스, 열 인덱스]
-exam = pd.read_csv('data/exam.csv')
-exam.loc[[2,7,14],]
-exam.loc[[0],['id','nclass']]
-exam.iloc[0:2,0:4]
-exam.iloc[0:2]
+# 막대그래프
+df_mpg=mpg.groupby('drv',as_index=False)\
+          .agg(mean_hwy=('hwy','mean'))\
+          .sort_values('mean_hwy',ascending=False)
+# 유니크한 값만 보고 싶을 떄
+mpg['drv'].unique()
+#
+df_mpg
+sns.barplot(data=df_mpg,
+            x="drv", y="mean_hwy",
+            hue="drv")
+plt.show()
+plt.clf()
 
-# 수학 점수가 50점 이하인 학생들 점수 50점으로 상향 조정
-exam.loc[exam['math']<=50, 'math'] = 50
-exam
-# exam['math']= np.where(exam['math']<=50,50,exam['math'])
-
-# 영어 점수가 90점 이상인 학생들 점수, 90점으로 하향조점 iloc사용
-exam.loc[exam['english']>=90,'english']
-
-# iloc을 사용해서 조회하려면 무조건 숫자 벡터가 들어가야함.
-exam.iloc[exam['english']>=90,3]  # 실행안됨
-
-exam.iloc[np.array(exam['english']>=90),3] # 실행됨
-exam.iloc[np.where(exam['english']>=90)[0],3] # np.where도 튜플이라 [0]로 np.array를 꺼내오면 됌
-exam.iloc[exam[exam['english']>=90].index,3] # index 벡터도 작동
-
-type(exam[exam['english']>=90].index)
-# <class 'pandas.core.indexes.base.Index'>
-exam.head()
-# math 점수 50점 이하 -로 변경
-exam.iloc[np.array(exam['math']<=50),2]='-'
-exam
-mean_math = exam.query('math != "-"')['math'].mean()
-m_math    = exam.loc[(exam['math']!= "-"),'math'].mean()
-me_math   = exam.query('math not in ["-"]')['math'].mean()
-mea_math  = np.nanmean(np.array([np.nan if x == '-' else float(x) for x in exam['math']]))
-
-import numpy as np
-
-type(exam['math'])
-
-vector1 = np.array([np.nan if x == '-' else float(x) for x in exam['math']])
-vector2 = np.array([float(x) if x != "-" else np.nan for x in exam['math']])
-vector2
-# 
-
-exam.loc[exam['math']=="-",['math']]=np.nan
-exam
-exam.loc[pd.isna(exam['math']),['math']]
-
-exam.iloc[np.array(exam['math']=="-"),2]=mean_math
-exam['math'] = np.where(exam['math'] == "-", math_mean, exam['math'])
-exam['math'] = np.where(exam['math] == "-", exam['math'])
-exam['math'] = exam['math'].replace("-", math_mean)
-
-
+df_mpg = mpg.groupby('drv', as_index= False)\
+            .agg(n=('drv','count'))
+df_mpg['drv'].unique()
+# 0번쨰 열 옆에 y 값이 들어갈 값이 있는 자료가 필요함
+sns.barplot(data=df_mpg, x='drv', y='n',hue='drv')
+plt.show()
+plt.clf()
+# raw_data가 들어감감
+sns.countplot(data=mpg, x='drv', hue='drv', order=['4','f','r'])
+plt.show()
+plt.clf()
