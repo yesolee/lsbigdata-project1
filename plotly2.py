@@ -2,6 +2,8 @@
 import plotly.express as px
 import pandas as pd
 from palmerpenguins import load_penguins
+import plotly.graph_objects as go
+
 
 # 데이터를 불러옵니다
 penguins = load_penguins()
@@ -40,7 +42,7 @@ fig.update_layout(
         ),
         traceorder="normal",  # 범례 항목의 순서
         orientation="v",     # 범례의 방향
-        title_font_size='16px'  # 범례 제목의 폰트 크기 조정
+        title_font_size=16  # 범례 제목의 폰트 크기 조정
     )
 )
 
@@ -94,7 +96,7 @@ model.fit(x,y)
 model.coef_
 model.intercept_
 
-y = mode.coef_[0] * bill_length + mode.coef_[1] * species_Chinstrap + mode.coef_[2] * species_Gentoo + model.intercept
+y = model.coef_[0] * bill_length + mode.coef_[1] * species_Chinstrap + mode.coef_[2] * species_Gentoo + model.intercept
 # 인덱스 1번 행의 펭귄: 아델리 종의 y값 예측
 # Adelie, 0, 0
 # y = mode.coef_[0] * 39.5 + mode.coef_[1] * 0+ mode.coef_[2] * 0+ model.intercept
