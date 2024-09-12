@@ -170,7 +170,7 @@ vs=VotingRegressor(estimators=[
     ('best_eln_model', best_eln_model), 
     ('best_rf_model', best_rf_model),
     ('blander_model', blander_model)],
-    weights=[1, 0.8, 1.3],
+    weights=[1, 1, 1.3],
     verbose=True)
 
 vs.fit(train_x_stack,train_y)
